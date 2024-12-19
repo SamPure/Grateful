@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funding Progress Visualization</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Layer -->
+    <div class="background"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Egg Visualization -->
+        <div class="egg-wrapper">
+            <svg class="egg-svg" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+                <path id="eggShape" 
+                      d="M100 20 
+                         C 120 20, 160 60, 160 150 
+                         C 160 250, 120 280, 100 280 
+                         C 80 280, 40 250, 40 150 
+                         C 40 60, 80 20, 100 20"
+                      fill="#4ECDC4">
+                </path>
+            </svg>
+        </div>
+
+        <!-- Controls Section -->
+        <section class="controls-section">
+            <!-- Funding Controls -->
+            <div class="funding-controls">
+                <div class="funding-goal">
+                    <span>$0</span>
+                    <span>$10M</span>
+                </div>
+                <input type="range" 
+                       id="fundingInput" 
+                       min="0" 
+                       max="10000000" 
+                       value="0" 
+                       step="100000">
+                <div class="funding-info">
+                    <span id="currentAmount">$0</span>
+                    <span id="percentageComplete">0%</span>
+                </div>
+            </div>
+
+            <!-- Goal Markers -->
+            <div class="goal-markers">
+                <div class="goal-marker">
+                    <span class="marker-label">Goal 1</span>
+                </div>
+                <div class="goal-marker">
+                    <span class="marker-label">Goal 2</span>
+                </div>
+                <div class="goal-marker">
+                    <span class="marker-label">Goal 3</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

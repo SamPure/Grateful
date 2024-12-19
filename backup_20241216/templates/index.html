@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Gratitude Journal</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-600">Daily Gratitude</h1>
+            <div class="flex items-center gap-4">
+                <span class="text-gray-600">Welcome, {{ current_user.email }}</span>
+                <a href="/logout" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+                    Sign Out
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mb-4 p-4 rounded-lg {% if category == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Gratitude Input Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">What are you grateful for today?</h2>
+            <form method="POST" action="/add_gratitude" class="flex gap-4">
+                <input type="text" name="message" 
+                       class="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                       placeholder="Enter your gratitude..."
+                       required>
+                <button type="submit" 
+                        class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
+                    Submit
+                </button>
+            </form>
+        </div>
+
+        <!-- Gratitude Entries -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-semibold mb-4">Your Gratitude Journal</h2>
+            {% if entries %}
+                <div class="space-y-4">
+                    {% for message, timestamp in entries %}
+                        <div class="border-b pb-4">
+                            <p class="text-gray-800">{{ message }}</p>
+                            <p class="text-sm text-gray-500">{{ timestamp }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-gray-600">No entries yet. Start by sharing what you're grateful for today!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
